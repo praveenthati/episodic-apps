@@ -18,9 +18,12 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,30 +39,38 @@ public class UserControllerTests {
     private UsersRepository usersRepository;
     private Gson gson = new GsonBuilder().create();
 
-
-    @Before
-    public void setUpExpectedResult() {
-
-        usersRepository.deleteAll();
-
-        User user = new User();
-        user.setEmail("user1@email.com");
-        usersRepository.save(user);
-
-    }
-
-
     @Test
     @Rollback
     @Transactional
     public void testGetUsers() throws Exception {
 
+        User user = new User();
+        user.setEmail("user1@email.com");
+        usersRepository.save(user);
 
         mvc.perform(get("/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
+
+    }
+
+    @Test
+    @Rollback
+    @Transactional
+    public void testPostUsers() throws Exception {
+
+        User user = new User();
+        user.setEmail("user1@email.com");
+
+
+        mvc.perform(post("/users")
+                .content(gson.toJson(user))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email", equalTo("user1@email.com")));
 
     }
 

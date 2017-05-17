@@ -9,6 +9,11 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
+
+}
+
+plugins {
+	id "org.flywaydb.flyway" version "4.2.0"
 }
 
 apply plugin: 'java'

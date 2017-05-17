@@ -1,7 +1,7 @@
 CREATE TABLE viewings (
-     id INT NOT NULL AUTO_INCREMENT,
-     user_id INT NOT NULL,
-     episode_id INT NOT NULL,
+     id BIGINT NOT NULL AUTO_INCREMENT,
+     user_id BIGINT NOT NULL,
+     episode_id BIGINT NOT NULL,
      updated_at DATETIME,
      timecode INT,
      PRIMARY KEY (id),

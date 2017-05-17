@@ -1,8 +1,6 @@
 package com.example.users;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -10,20 +8,25 @@ import java.util.List;
 /**
  * Created by Praveen Thati on 5/17/17.
  */
-@RequestMapping("/users")
 @RestController
 public class UsersController {
 
-    private UserDetailsService UserDetailsService;
+    private final UserDetailsService UserDetailsService;
 
     public UsersController(UserDetailsService userDetailsService) {
         this.UserDetailsService = userDetailsService;
     }
 
-    @GetMapping("")
-    public List<User> getUsers(HttpServletRequest request) {
+    @GetMapping("/users")
+    public List<User> getUsers() {
 
         return UserDetailsService.getAllUsers();
+    }
+
+    @PostMapping("/users")
+    public User createUser(@RequestBody User user) {
+
+        return UserDetailsService.addUser(user);
     }
 
 }

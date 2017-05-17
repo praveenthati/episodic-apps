@@ -24,4 +24,8 @@ public class UserDetailsService {
         return list;
 
     }
+
+    public User addUser(User user){
+        return usersRepository.save(user);
+    }
 }
