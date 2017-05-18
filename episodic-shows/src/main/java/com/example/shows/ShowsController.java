@@ -37,8 +37,9 @@ public class ShowsController {
     }
 
     @PostMapping("/shows/{id}/episodes")
-    public Episode createEpisode(@RequestBody Episode episode) {
+    public Episode createEpisode(@PathVariable Long id,@RequestBody Episode episode) {
 
+        episode.setShowId(id);
         return EpisodesService.addEpisode(episode);
     }
 
