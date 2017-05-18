@@ -1,9 +1,6 @@
 package com.example.shows;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,9 +11,11 @@ import java.util.List;
 public class ShowsController {
 
     private final ShowsService ShowsService;
+    private final EpisodesService EpisodesService;
 
-    public ShowsController(ShowsService showsService) {
+    public ShowsController(ShowsService showsService,EpisodesService episodesService) {
         this.ShowsService = showsService;
+        this.EpisodesService = episodesService;
     }
 
     @GetMapping("/shows")
@@ -29,6 +28,18 @@ public class ShowsController {
     public Show createShow(@RequestBody Show show) {
 
         return ShowsService.addShow(show);
+    }
+
+    @GetMapping("/shows/{id}/episodes")
+    public List<Episode> getShowEpisodes(@PathVariable Long id) {
+
+        return EpisodesService.getEpisodesForAShow(id);
+    }
+
+    @PostMapping("/shows/{id}/episodes")
+    public Episode createEpisode(@RequestBody Episode episode) {
+
+        return EpisodesService.addEpisode(episode);
     }
 
 }

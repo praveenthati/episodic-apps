@@ -33,6 +33,9 @@ public class ShowsControllerTests {
 
     @Autowired
     private ShowsRepository showsRepository;
+    @Autowired
+    private EpisodesRepository episodesRepository;
+
     private Gson gson = new GsonBuilder().create();
 
     @Test
@@ -70,5 +73,62 @@ public class ShowsControllerTests {
 
     }
 
+    @Test
+    @Rollback
+    @Transactional
+    public void testGetShowEpisodes() throws Exception {
+
+        Show show = new Show();
+        show.setName("Show1");
+        showsRepository.save(show);
+
+        Episode episode = new Episode();
+        episode.setShowId(show.getId());
+        episode.setEpisodeNumber(1L);
+        episode.setSeasonNumber(1L);
+        episodesRepository.save(episode);
+
+        episode = new Episode();
+        episode.setShowId(show.getId());
+        episode.setEpisodeNumber(1L);
+        episode.setSeasonNumber(2L);
+        episodesRepository.save(episode);
+
+        mvc.perform(get("/shows/"+show.getId()+"/episodes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].seasonNumber", equalTo(1)))
+                .andExpect(jsonPath("$[1].seasonNumber", equalTo(2)));
+
+    }
+
+
+    @Test
+    @Rollback
+    @Transactional
+    public void testPostEpisodes() throws Exception {
+
+        Show show = new Show();
+        show.setName("Show1");
+        showsRepository.save(show);
+
+        Episode episode = new Episode();
+        episode.setShowId(show.getId());
+        episode.setEpisodeNumber(1L);
+        episode.setSeasonNumber(1L);
+
+
+        mvc.perform(post("/shows/"+show.getId()+"/episodes")
+                .content(gson.toJson(episode))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.seasonNumber", equalTo(episode.getSeasonNumber().intValue())))
+                .andExpect(jsonPath("$.episodeNumber", equalTo(episode.getEpisodeNumber().intValue())))
+                .andExpect(jsonPath("$.title", equalTo(episode.getTitle())));
+
+    }
 
 }
