@@ -1,7 +1,4 @@
-package com.example;
-
-import lombok.Getter;
-import lombok.Setter;
+package com.example.users;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
