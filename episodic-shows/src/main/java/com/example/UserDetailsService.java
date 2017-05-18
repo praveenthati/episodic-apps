@@ -1,10 +1,8 @@
-package com.example.users;
+package com.example;
 
-import com.example.entityrepository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.users;
+package com.example;
 
 import lombok.Getter;
 import lombok.Setter;

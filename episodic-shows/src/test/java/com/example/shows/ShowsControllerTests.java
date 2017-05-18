@@ -1,7 +1,6 @@
-package com.example.users;
+package com.example.shows;
 
-import com.example.User;
-import com.example.UsersRepository;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.Test;
@@ -27,25 +26,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
-public class UserControllerTests {
+public class ShowsControllerTests {
 
     @Autowired
     MockMvc mvc;
 
     @Autowired
-    private UsersRepository usersRepository;
+    private ShowsRepository showsRepository;
     private Gson gson = new GsonBuilder().create();
 
     @Test
     @Rollback
     @Transactional
-    public void testGetUsers() throws Exception {
+    public void testGetShows() throws Exception {
 
-        User user = new User();
-        user.setEmail("user1@email.com");
-        usersRepository.save(user);
+        Show show = new Show();
+        show.setName("Show1");
+        showsRepository.save(show);
 
-        mvc.perform(get("/users")
+        mvc.perform(get("/shows")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -56,18 +55,18 @@ public class UserControllerTests {
     @Test
     @Rollback
     @Transactional
-    public void testPostUsers() throws Exception {
+    public void testPostShows() throws Exception {
 
-        User user = new User();
-        user.setEmail("user1@email.com");
+        Show show = new Show();
+        show.setName("Show1");
 
 
-        mvc.perform(post("/users")
-                .content(gson.toJson(user))
+        mvc.perform(post("/shows")
+                .content(gson.toJson(show))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email", equalTo("user1@email.com")));
+                .andExpect(jsonPath("$.name", equalTo("Show1")));
 
     }
 
