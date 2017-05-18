@@ -23,7 +23,16 @@ public class EpisodesService {
 
     }
 
-    public Episode addEpisode(Episode episode){
+    public Episode addEpisode(Episode episode, long showId){
+
+        episode.setShowId(showId);
         return episodesRepository.save(episode);
+
+    }
+
+    public Episode getEpisodeById(long id){
+
+        return episodesRepository.findOne(id);
+
     }
 }

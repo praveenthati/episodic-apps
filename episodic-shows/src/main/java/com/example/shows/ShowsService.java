@@ -28,4 +28,8 @@ public class ShowsService {
     public Show addShow(Show show){
         return showsRepository.save(show);
     }
+
+    public Show getShowById(long id){
+        return showsRepository.findOne(id);
+    }
 }

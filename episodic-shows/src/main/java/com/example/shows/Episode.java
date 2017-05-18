@@ -1,5 +1,7 @@
 package com.example.shows;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -23,6 +25,7 @@ public class Episode {
         this.id = id;
     }
 
+    @JsonIgnore
     public Long getShowId() {
         return showId;
     }

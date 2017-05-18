@@ -125,7 +125,7 @@ public class ShowsControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.showId", equalTo(episode.getShowId().intValue())))
+                .andExpect(jsonPath("$.showId").doesNotExist())
                 .andExpect(jsonPath("$.seasonNumber", equalTo(episode.getSeasonNumber().intValue())))
                 .andExpect(jsonPath("$.episodeNumber", equalTo(episode.getEpisodeNumber().intValue())))
                 .andExpect(jsonPath("$.title", equalTo(episode.getTitle())));
