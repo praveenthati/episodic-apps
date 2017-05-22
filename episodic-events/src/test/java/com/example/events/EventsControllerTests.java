@@ -156,7 +156,7 @@ public class EventsControllerTests {
                 put("userId", 52);
                 put("showId", 987);
                 put("episodeId", 456);
-                put("createdAt", "2017-11-08T15:59:13.0091745");
+                put("createdAt", "2017-11-08T15:59:13.0091");
                 put("data", new HashMap<String, Object>() {
                     {
                         put("speed",  4.5);
@@ -178,6 +178,7 @@ public class EventsControllerTests {
                 .andExpect(jsonPath("$.data.endOffset", equalTo(41)))
                 .andExpect(jsonPath("$.data.startOffset", equalTo(4)))
                 .andExpect(jsonPath("$.data.speed", equalTo(4.5)))
+                .andExpect(jsonPath("$.createdAt", equalTo("2017-11-08T15:59:13.0091")))
                 .andDo(print());
 
     }
