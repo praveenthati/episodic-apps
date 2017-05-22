@@ -79,6 +79,7 @@ public class EventsControllerTests {
                 .andExpect(jsonPath("$.userId", equalTo(52)))
                 .andExpect(jsonPath("$.type", equalTo("play")))
                 .andExpect(jsonPath("$.data.offset", equalTo(4)))
+                .andExpect(jsonPath("$.data.speed").doesNotExist())
                 .andDo(print());
 
     }
@@ -95,7 +96,8 @@ public class EventsControllerTests {
                 put("createdAt", "2017-11-08T15:59:13.0091745");
                 put("data", new HashMap<String, Object>() {
                     {
-                        put("offset",  4);
+                        put("startOffset",  4);
+                        put("endOffset",  41);
                     }
                 });
             }
@@ -109,6 +111,8 @@ public class EventsControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId", equalTo(52)))
                 .andExpect(jsonPath("$.type", equalTo("scrub")))
+                .andExpect(jsonPath("$.data.endOffset", equalTo(41)))
+                .andExpect(jsonPath("$.data.startOffset", equalTo(4)))
                 .andDo(print());
 
     }
@@ -155,7 +159,9 @@ public class EventsControllerTests {
                 put("createdAt", "2017-11-08T15:59:13.0091745");
                 put("data", new HashMap<String, Object>() {
                     {
-                        put("offset",  4);
+                        put("speed",  4.5);
+                        put("endOffset",  41);
+                        put("startOffset",  4);
                     }
                 });
             }
@@ -169,6 +175,9 @@ public class EventsControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId", equalTo(52)))
                 .andExpect(jsonPath("$.type", equalTo("fastForward")))
+                .andExpect(jsonPath("$.data.endOffset", equalTo(41)))
+                .andExpect(jsonPath("$.data.startOffset", equalTo(4)))
+                .andExpect(jsonPath("$.data.speed", equalTo(4.5)))
                 .andDo(print());
 
     }
@@ -185,7 +194,9 @@ public class EventsControllerTests {
                 put("createdAt", "2017-11-08T15:59:13.0091745");
                 put("data", new HashMap<String, Object>() {
                     {
-                        put("offset",  4);
+                        put("speed",  4.5);
+                        put("endOffset",  41);
+                        put("startOffset",  4);
                     }
                 });
             }
@@ -199,6 +210,9 @@ public class EventsControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId", equalTo(52)))
                 .andExpect(jsonPath("$.type", equalTo("rewind")))
+                .andExpect(jsonPath("$.data.endOffset", equalTo(41)))
+                .andExpect(jsonPath("$.data.startOffset", equalTo(4)))
+                .andExpect(jsonPath("$.data.speed", equalTo(4.5)))
                 .andDo(print());
 
     }
