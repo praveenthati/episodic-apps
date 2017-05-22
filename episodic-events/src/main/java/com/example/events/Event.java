@@ -19,6 +19,17 @@ import java.util.Date;
 })
 public abstract class Event {
 
+    public Event(){
+
+    }
+
+    public Event(Long userId, Long showId, Long episodeId, Date createdAt) {
+        this.userId = userId;
+        this.showId = showId;
+        this.episodeId = episodeId;
+        this.createdAt = createdAt;
+    }
+
     public String getId() {
         return id;
     }
@@ -33,7 +44,7 @@ public abstract class Event {
     private Long showId;
     private Long episodeId;
     private Date createdAt;
-    private String type;
+
 
     public Long getUserId() {
         return userId;
@@ -68,12 +79,4 @@ public abstract class Event {
         this.createdAt = createdAt;
     }
 
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

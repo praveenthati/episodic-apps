@@ -78,6 +78,7 @@ public class EventsControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userId", equalTo(52)))
                 .andExpect(jsonPath("$.type", equalTo("play")))
+                .andExpect(jsonPath("$.data.offset", equalTo(4)))
                 .andDo(print());
 
     }
@@ -206,9 +207,8 @@ public class EventsControllerTests {
     public void getRecent() throws Exception{
 
         for(int i=0; i<21; i++) {
-            PlayEvent playEvent = new PlayEvent();
             PlayEvent.Data data = new PlayEvent.Data();
-            playEvent.setData(data);
+            PlayEvent playEvent = new PlayEvent(1L,1L,1L,new Date(), data);
             playEvent.setUserId(new Long(i));
             eventsRepository.save(playEvent);
         }
@@ -218,7 +218,9 @@ public class EventsControllerTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(20)));
+                .andExpect(jsonPath("$", hasSize(20)))
+                .andExpect(jsonPath("$[0].type", equalTo("play")))
+                .andDo(print());
 
     }
 }

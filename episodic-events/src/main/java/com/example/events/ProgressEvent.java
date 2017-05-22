@@ -1,5 +1,6 @@
 package com.example.events;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -9,15 +10,18 @@ import java.util.Date;
  */
 public class ProgressEvent extends Event {
 
-    public Data getData() {
-        return data;
-    }
+    @JsonCreator
+    public ProgressEvent(@JsonProperty("userId") Long userId,@JsonProperty("showId")Long showId,@JsonProperty("episodeId")Long episodeId,@JsonProperty("createdAt")Date createdAt,@JsonProperty("data")Data data){
 
-    public void setData(Data data) {
+        super(userId,showId,episodeId,createdAt);
         this.data = data;
     }
 
     private Data data;
+
+    public Data getData() {
+        return data;
+    }
 
     static class Data{
 

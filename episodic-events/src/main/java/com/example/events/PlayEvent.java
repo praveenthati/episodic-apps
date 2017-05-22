@@ -1,17 +1,21 @@
 package com.example.events;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
 public class PlayEvent extends Event {
 
-    public Data getData() {
-        return data;
+    @JsonCreator
+    public PlayEvent(@JsonProperty("userId") Long userId,@JsonProperty("showId")Long showId,@JsonProperty("episodeId")Long episodeId,@JsonProperty("createdAt")Date createdAt,@JsonProperty("data")Data data){
+
+        super(userId,showId,episodeId,createdAt);
+        this.data = data;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public Data getData() {
+        return data;
     }
 
     private Data data;
