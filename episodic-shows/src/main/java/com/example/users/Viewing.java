@@ -1,5 +1,7 @@
 package com.example.users;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,6 +38,7 @@ public class Viewing {
         this.episodeId = episodeId;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSS")
     public Date getUpdatedAt() {
         return updatedAt;
     }

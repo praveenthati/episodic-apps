@@ -1,6 +1,7 @@
 package com.example.shows;
 
 
+import com.example.MyTestBaseClass;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.junit.Test;
@@ -26,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
-public class ShowsControllerTests {
+public class ShowsControllerTests extends MyTestBaseClass {
 
     @Autowired
     MockMvc mvc;
