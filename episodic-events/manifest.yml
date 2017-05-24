@@ -1,12 +1,14 @@
 applications:
 - name: episodic-events
   instances: 1
-  memory: 512M
-  disk_quota: 1024M
+  memory: 1GB
+  disk_quota: 2GB
   routes:
   - route: episodic-events-unexcusing-prolusion.cfapps.io
   services:
   - episodic-events-db
   - episodic-queue
+  - service-registry
+  - config-server
   stack: cflinuxfs2
   path: "./build/libs/episodic-events-0.0.1-SNAPSHOT.jar"

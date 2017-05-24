@@ -21,7 +21,8 @@ public class MessageListener implements RabbitListenerConfigurer {
         this.ViewingsService = viewingsService;
     }
 
-    @RabbitListener(queues = "#{'${queue}'}")
+    //@RabbitListener(queues = "#{'${queue}'}")
+    @RabbitListener(queues = "episodic-progress")
     @Transactional
     public void receiveMessage(final ProgessMessage message) {
         ViewingsService.patchViewings(message);
